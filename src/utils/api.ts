@@ -6,8 +6,13 @@ const api = axios.create({
     baseURL: "https://jsonplaceholder.typicode.com",
 });
 
-export async function fetchPosts(): Promise<Post[]> {
-    const result = await api.get("/posts");
+export async function fetchPosts(
+    pageItemsLimit: number = 10, // default de 10 itens por página se não definido
+    currentPage: number = 1
+): Promise<Post[]> {
+    const result = await api.get(
+        `/posts?_limit=${pageItemsLimit}&_start=${currentPage}`
+    );
     return result.data;
 }
 

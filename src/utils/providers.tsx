@@ -8,7 +8,13 @@ type Props = {
     children: ReactNode;
 };
 export function Providers({ children }: Props) {
-    const queryClient = new QueryClient();
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: {
+                staleTime: Infinity,
+            },
+        },
+    });
 
     return (
         <QueryClientProvider client={queryClient}>

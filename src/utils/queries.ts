@@ -1,13 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchPost, fetchPosts, fetchUsers } from "./api";
 
-export const usePosts = () => {
-    const query = useQuery({
-        queryKey: ["posts"],
-        queryFn: fetchPosts,
+export const usePosts = (pageItemsLimit: number, currentPage: number) =>
+    useQuery({
+        queryKey: ["posts", { pageItemsLimit, currentPage }],
+        queryFn: () => fetchPosts(pageItemsLimit, currentPage),
+        staleTime: Infinity,
     });
-    return query;
-};
 
 export const usePost = (id: number) =>
     useQuery({
